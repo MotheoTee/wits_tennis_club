@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "801147351298",
+    "project_id": "witstennisclub",
+    "storage_bucket": "witstennisclub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801147351298:android:e759ce8f5e922de2dd921b",
+        "android_client_info": {
+          "package_name": "com.example.wits_tennis_club"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801147351298-2qc77cb5jm590frq3tv9pl7mi6srbgjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5iBZy8yrjnhamOVHQIHKVYv7BIdshBcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801147351298-2qc77cb5jm590frq3tv9pl7mi6srbgjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
