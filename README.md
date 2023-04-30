@@ -1,4 +1,4 @@
-# wits_tennis_club
+# Wits Tennis Club Mobile Application
 
 A new Flutter project.
 
