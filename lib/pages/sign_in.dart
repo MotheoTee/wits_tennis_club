@@ -13,11 +13,11 @@ class _Sign_InState extends State<Sign_In> {
   // text controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
+  bool _obscureText = true;
   Future signIn() async{
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
-        password: _passwordController.text.trim()
+        password: _passwordController.text.trim(),
     );
   }
 
@@ -43,13 +43,14 @@ class _Sign_InState extends State<Sign_In> {
                   //Wits logo
                   const Image(image: AssetImage('images/witsimage.png')),
 
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 30),
 
-                  const Text('Welcome To The Wits Tennis Club!',
+                  Text('TENNIS CLUB',
                     style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 18,
-                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Colors.blue.shade900,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
 
@@ -59,11 +60,12 @@ class _Sign_InState extends State<Sign_In> {
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text('Email',
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 17
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              decoration: TextDecoration.underline
                           ),
                         ),
                       ],
@@ -78,7 +80,7 @@ class _Sign_InState extends State<Sign_In> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(color: Colors.blue),
+                        border: Border.all(color: Colors.blue.shade900),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
@@ -87,7 +89,8 @@ class _Sign_InState extends State<Sign_In> {
                           controller: _emailController,
                           decoration: const InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'example@domain.com'
+                              hintText: 'example@domain.com',
+                            prefixIcon: Icon(Icons.email),
                           ),
                         ),
                       ),
@@ -101,11 +104,12 @@ class _Sign_InState extends State<Sign_In> {
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text('Password',
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 17
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              decoration: TextDecoration.underline
                           ),
                         ),
                       ],
@@ -119,16 +123,24 @@ class _Sign_InState extends State<Sign_In> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(color: Colors.blue),
+                        border: Border.all(color: Colors.blue.shade900),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: TextField(
                           controller: _passwordController,
-                          obscureText: true,
-                          decoration: const InputDecoration(
+                          obscureText: _obscureText,
+                          decoration: InputDecoration(
                             border: InputBorder.none,
+                            prefixIcon: Icon(Icons.password),
+                            suffixIcon: GestureDetector(
+                              onTap: () {setState(() {
+                                _obscureText=! _obscureText;
+                              });
+                              },
+                              child: Icon(_obscureText ?Icons.visibility : Icons.visibility_off),
+                            ),
                           ),
                         ),
                       ),
@@ -142,11 +154,12 @@ class _Sign_InState extends State<Sign_In> {
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
+                      children: [
                         Text('Forgot Password?',
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline
                           ),
                         ),
                       ],
@@ -162,7 +175,7 @@ class _Sign_InState extends State<Sign_In> {
                       onTap: signIn,
                       child: Container(
                         padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(color: Colors.blue,
+                        decoration: BoxDecoration(color: Colors.blue[900],
                             borderRadius: BorderRadius.circular(12)
                         ),
                         child: const Center(
