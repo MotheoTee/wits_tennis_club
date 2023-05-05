@@ -1,18 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wits_tennis_club/components/main_page.dart';
 import 'package:wits_tennis_club/pages/sign_in.dart';
-import 'package:wits_tennis_club/pages/player_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MaterialApp(
-    routes: {
-      '/': (context) => const Sign_In(),
-      '/player_home': (context) => const Player_Home(),
-    },
-  ));
+
+  runApp(const MyApp());
 }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Sign_In(),
+    );
+  }
+}
+
 
 /*
 class MyHomePage extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Sign_In extends StatefulWidget {
   const Sign_In({Key? key}) : super(key: key);
@@ -8,6 +9,25 @@ class Sign_In extends StatefulWidget {
 }
 
 class _Sign_InState extends State<Sign_In> {
+
+  // text controllers
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future signIn() async{
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim()
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +54,7 @@ class _Sign_InState extends State<Sign_In> {
                   ),
 
                   const SizedBox(height: 40),
-
-                  //email text-field below
+                  //Email text above it's textfield
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
@@ -53,6 +72,7 @@ class _Sign_InState extends State<Sign_In> {
 
                   const SizedBox(height: 7),
 
+                  //email text-field below
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
@@ -61,10 +81,11 @@ class _Sign_InState extends State<Sign_In> {
                         border: Border.all(color: Colors.blue),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.only(left: 20.0),
                         child: TextField(
-                          decoration: InputDecoration(
+                          controller: _emailController,
+                          decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'example@domain.com'
                           ),
@@ -75,7 +96,7 @@ class _Sign_InState extends State<Sign_In> {
 
                   const SizedBox(height: 15),
 
-                  //password text-field below
+                  //password text above it's textfield
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
@@ -92,7 +113,7 @@ class _Sign_InState extends State<Sign_In> {
                   ),
 
                   const SizedBox(height: 7),
-
+                  //password text-field
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
@@ -101,11 +122,12 @@ class _Sign_InState extends State<Sign_In> {
                         border: Border.all(color: Colors.blue),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 20.0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
                         child: TextField(
+                          controller: _passwordController,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                           ),
                         ),
@@ -132,22 +154,26 @@ class _Sign_InState extends State<Sign_In> {
                   ),
 
                   const SizedBox(height: 15),
+                  
                   //Sign in button
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 110.0),
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: Colors.blue,
-                          borderRadius: BorderRadius.circular(12)
+                    child: GestureDetector(
+                      onTap: signIn,
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(color: Colors.blue,
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        child: const Center(
+                            child: Text(
+                              'Sign In',
+                              style: TextStyle(color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15
+                              ),
+                            )),
                       ),
-                      child: const Center(
-                          child: Text(
-                            'Sign In',
-                            style: TextStyle(color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15
-                            ),
-                          )),
                     ),
                   )
                 ],

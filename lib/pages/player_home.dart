@@ -11,7 +11,7 @@ class _Player_HomeState extends State<Player_Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Text('players home in screen'),),
+      body: SafeArea(child: Text('signed in')),
     );
   }
 }
