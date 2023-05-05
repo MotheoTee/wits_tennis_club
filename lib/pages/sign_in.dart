@@ -10,29 +10,43 @@ class Sign_In extends StatelessWidget {
       body:SafeArea(
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //Signing In title below
-                Text('Sign In',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 45,
-                        color: Colors.blue
-                    ),
-                ),
 
-                SizedBox(height: 10),
+                SizedBox(height: 15),
+                //Wits logo
+                Image(image: AssetImage('images/witsimage.png')),
+
+                SizedBox(height: 15),
 
                 Text('Welcome To The Wits Tennis Club!',
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
-                      fontSize: 20,
-                      color: Colors.blue
+                      fontSize: 18,
+                      color: Colors.blue,
                   ),
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: 40),
 
                 //email textfield below
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Email',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 17
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 7),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
@@ -57,6 +71,23 @@ class Sign_In extends StatelessWidget {
 
                 //password textfield below
                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Password',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 17
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 7),
+
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
@@ -70,10 +101,27 @@ class Sign_In extends StatelessWidget {
                         obscureText: true,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Password'
                         ),
                       ),
                     ),
+                  ),
+                ),
+
+                SizedBox(height: 10),
+
+                //Forgot password option
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ],
                   ),
                 ),
 
