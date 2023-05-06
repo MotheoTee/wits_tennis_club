@@ -15,16 +15,21 @@ class _Sign_InState extends State<Sign_In> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
+
+  Color mySplashColor=Colors.blue;
+
   //This is the sign in function so that the user can enter into our app
   Future signIn() async{
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-    ).then((value) =>
-        Navigator.push(context, MaterialPageRoute(builder: (context) =>
-            Player_Home())).onError((error, stackTrace) =>
-            print("Error ${error.toString()}")));
-        print("Signed In Successfully");
+      ).then((value) =>
+      Navigator.canPop(context) ? Navigator.pop(context) : null);
+      print("Signed In Successfully");
+    } catch(error){
+      print("Error ${error.toString()}");
+    }
 
   }
 
@@ -179,7 +184,9 @@ class _Sign_InState extends State<Sign_In> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 110.0),
                     child: GestureDetector(
-                      onTap: signIn,
+                      onTap: () {
+                        signIn();
+                      },
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(color: Colors.blue[900],
