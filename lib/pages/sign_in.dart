@@ -49,7 +49,7 @@ class _Sign_InState extends State<Sign_In> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Divider(color: Colors.blue[900],),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 10),
                   //Wits logo
                   const Image(image: AssetImage('images/witsimage.png')),
 
@@ -165,11 +165,16 @@ class _Sign_InState extends State<Sign_In> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text('Forgot Password?',
-                          style: TextStyle(
-                              color: Colors.blue[900],
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/forgotpassword');
+                          } ,
+                          child: Text('Forgot Password?',
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline
+                            ),
                           ),
                         ),
                       ],

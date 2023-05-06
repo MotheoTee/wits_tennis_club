@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wits_tennis_club/pages/forgot_password.dart';
 import 'package:wits_tennis_club/pages/player_home.dart';
 import 'package:wits_tennis_club/pages/sign_in.dart';
 
@@ -35,6 +36,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/' : (context) => user != null ? const Player_Home() : const Sign_In(),
         '/playerHome' : (context) => const Player_Home(),
+        '/forgotpassword' : (context) => const Forgot_Password(),
       },
     );
   }
