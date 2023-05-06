@@ -49,7 +49,7 @@ class _Sign_InState extends State<Sign_In> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Divider(color: Colors.blue[900],),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 50),
                   //Wits logo
                   const Image(image: AssetImage('images/witsimage.png')),
 
