@@ -25,12 +25,12 @@ class _Sign_InState extends State<Sign_In> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       ).then((value) =>
-      Navigator.canPop(context) ? Navigator.pop(context) : null);
-      print("Signed In Successfully");
+      //Navigator.canPop(context) ? Navigator.pop(context) : null);
+          print("Signed In Successfully"));
+          Navigator.pushNamed(context, '/playerHome');
     } catch(error){
       print("Error ${error.toString()}");
     }
-
   }
 
   @override
