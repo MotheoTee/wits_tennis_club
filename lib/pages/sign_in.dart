@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wits_tennis_club/pages/player_home.dart';
 
 class Sign_In extends StatefulWidget {
   const Sign_In({Key? key}) : super(key: key);
@@ -14,11 +15,17 @@ class _Sign_InState extends State<Sign_In> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
+  //This is the sign in function so that the user can enter into our app
   Future signIn() async{
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-    );
+    ).then((value) =>
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>
+            Player_Home())).onError((error, stackTrace) =>
+            print("Error ${error.toString()}")));
+        print("Signed In Successfully");
+
   }
 
   @override
@@ -38,17 +45,17 @@ class _Sign_InState extends State<Sign_In> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  const SizedBox(height: 15),
+                  Divider(color: Colors.blue[900],),
+                  const SizedBox(height: 100),
                   //Wits logo
                   const Image(image: AssetImage('images/witsimage.png')),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 25),
 
                   Text('TENNIS CLUB',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                      fontSize: 27,
                       color: Colors.blue.shade900,
                       decoration: TextDecoration.underline,
                     ),
@@ -133,7 +140,7 @@ class _Sign_InState extends State<Sign_In> {
                           obscureText: _obscureText,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            prefixIcon: Icon(Icons.password),
+                            prefixIcon: Icon(Icons.lock),
                             suffixIcon: GestureDetector(
                               onTap: () {setState(() {
                                 _obscureText=! _obscureText;
@@ -188,7 +195,11 @@ class _Sign_InState extends State<Sign_In> {
                             )),
                       ),
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 15),
+                  Divider(
+                    color: Colors.blue[900],
+                  ),
                 ],
               ),
             ),
