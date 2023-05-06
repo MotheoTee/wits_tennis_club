@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wits_tennis_club/pages/player_home.dart';
@@ -9,17 +10,30 @@ void main() async {
 
   runApp(const MyApp());
 }
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //home: Sign_In(),
+      //home: user != null ? const Player_Home() : const Sign_In(),
       initialRoute: '/',
       routes: {
-        '/' : (context) => const Sign_In(),
+        '/' : (context) => user != null ? const Player_Home() : const Sign_In(),
         '/playerHome' : (context) => const Player_Home(),
       },
     );

@@ -16,8 +16,6 @@ class _Sign_InState extends State<Sign_In> {
   final _passwordController = TextEditingController();
   bool _obscureText = true;
 
-  Color mySplashColor=Colors.blue;
-
   //This is the sign in function so that the user can enter into our app
   Future signIn() async{
     try {
