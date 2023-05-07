@@ -23,6 +23,7 @@ class _Player_HomeState extends State<Player_Home> {
             MaterialPageRoute(builder: (context) =>
                 Sign_In())).onError((error, stackTrace) =>
             print("Error ${error.toString()}")));
+        Navigator.pop(context);
     print("Signed Out Successfully");
   }
 
@@ -96,22 +97,24 @@ class _Player_HomeState extends State<Player_Home> {
   }
   Widget MyDrawerList(){
     return Container(
-      padding: EdgeInsets.only(top: 15,),
+      padding: const EdgeInsets.only(top: 15,),
       child: Column(
         children: [
           menuItem(1, "HomePage", Icons.home,
             currentPage == DrawerSections.homepage? true : false),
           menuItem(2, "Announcements", Icons.announcement,
               currentPage == DrawerSections.announcements? true : false),
-          menuItem(3, "On Campus", Icons.dashboard,
+          menuItem(3, "On Campus", Icons.accessibility_outlined,
               currentPage == DrawerSections.oncampus? true : false),
-          menuItem(4, "Off Campus", Icons.dashboard,
+          menuItem(4, "Off Campus", Icons.group_off_outlined,
               currentPage == DrawerSections.offcampus? true : false),
           menuItem(5, "Make A Query", Icons.question_mark,
               currentPage == DrawerSections.makequery? true : false),
           menuItem(6, "Settings", Icons.settings,
               currentPage == DrawerSections.homepage? true : false),
-          Divider(),
+
+          const Divider(color: Colors.grey,),
+
           menuItem(7, "Contact Us", Icons.people_alt_outlined,
               currentPage == DrawerSections.contacts? true : false),
           menuItem(8, "Privacy Policy", Icons.privacy_tip_outlined,
@@ -153,14 +156,14 @@ class _Player_HomeState extends State<Player_Home> {
             else if(id ==8){
               currentPage = DrawerSections.privacy_policy;
             }
-            else if(id ==9){
+            else{
               currentPage = DrawerSections.logout;
               logOut();
             }
           });
         },
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           child: Row(
             children: [
                Expanded(

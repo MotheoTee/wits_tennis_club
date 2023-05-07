@@ -52,8 +52,6 @@ class _Forgot_PasswordState extends State<Forgot_Password> {
                 children: [
                   Divider(color: Colors.blue[900],),
                   const SizedBox(height: 30),
-                  //Wits logo
-                  const Image(image: AssetImage('images/witsimage.png')),
 
                   const SizedBox(height: 50),
 

@@ -18,6 +18,11 @@ class _Sign_InState extends State<Sign_In> {
 
   //This is the sign in function so that the user can enter into our app
   Future signIn() async{
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(child: CircularProgressIndicator());
+        },);
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -26,8 +31,17 @@ class _Sign_InState extends State<Sign_In> {
       //Navigator.canPop(context) ? Navigator.pop(context) : null);
           print("Signed In Successfully"));
           Navigator.pushNamed(context, '/playerHome');
-    } catch(error){
-      print("Error ${error.toString()}");
+    } on FirebaseAuthException catch (e) {
+      Navigator.of(context).pop();
+      print('e');
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(e.message.toString()),
+            );
+          });
+
     }
   }
 
@@ -65,7 +79,7 @@ class _Sign_InState extends State<Sign_In> {
                   ),
 
                   const SizedBox(height: 40),
-                  //Email text above it's textfield
+                  //Email text above it's text-field
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
@@ -94,7 +108,7 @@ class _Sign_InState extends State<Sign_In> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20.0),
+                        padding: const EdgeInsets.only(left: 20.0),
                         child: TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(
@@ -143,7 +157,7 @@ class _Sign_InState extends State<Sign_In> {
                           obscureText: _obscureText,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            prefixIcon: Icon(Icons.lock),
+                            prefixIcon: const Icon(Icons.lock),
                             suffixIcon: GestureDetector(
                               onTap: () {setState(() {
                                 _obscureText=! _obscureText;
