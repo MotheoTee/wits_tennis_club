@@ -61,6 +61,14 @@ class _Sign_InState extends State<Sign_In> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text('PLAYER',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 27,
+                      color: Colors.blue.shade900,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                   Divider(color: Colors.blue[900],),
                   const SizedBox(height: 50),
                   //Wits logo
