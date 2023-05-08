@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wits_tennis_club/pages/forgot_password.dart';
 import 'package:wits_tennis_club/pages/player_home.dart';
 import 'package:wits_tennis_club/pages/sign_in.dart';
+import 'package:wits_tennis_club/pages/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,8 @@ class _MyAppState extends State<MyApp> {
       //home: user != null ? const Player_Home() : const Sign_In(),
       initialRoute: '/',
       routes: {
-        '/' : (context) => user != null ? const Player_Home() : const Sign_In(),
+        '/' : (context) => const SplashScreen(),
+        '/sign_in' : (context) => user != null ? const Player_Home() : const Sign_In(),
         '/playerHome' : (context) => const Player_Home(),
         '/forgotpassword' : (context) => const Forgot_Password(),
       },

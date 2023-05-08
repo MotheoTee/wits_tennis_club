@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:wits_tennis_club/pages/sign_in.dart';
+import 'package:wits_tennis_club/pages/splash_screen.dart';
 
 import '../components/my_drawer_header.dart';
 
@@ -21,7 +21,7 @@ class _Player_HomeState extends State<Player_Home> {
     await FirebaseAuth.instance.signOut().then((value) =>
         Navigator.push(context,
             MaterialPageRoute(builder: (context) =>
-                Sign_In())).onError((error, stackTrace) =>
+                SplashScreen())).onError((error, stackTrace) =>
             print("Error ${error.toString()}")));
         Navigator.pop(context);
     print("Signed Out Successfully");

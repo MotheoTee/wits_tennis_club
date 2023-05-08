@@ -85,7 +85,7 @@ class _Sign_InState extends State<Sign_In> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Email',
+                        Text('Player Email',
                           style: TextStyle(
                               color: Colors.blue[900],
                               fontSize: 17,
@@ -217,6 +217,20 @@ class _Sign_InState extends State<Sign_In> {
                                   fontSize: 15
                               ),
                             )),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Go Back',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.blue.shade900,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
                   ),
