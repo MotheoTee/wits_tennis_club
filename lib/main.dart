@@ -1,37 +1,56 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wits_tennis_club/pages/forgot_password.dart';
+import 'package:wits_tennis_club/pages/player_home.dart';
+import 'package:wits_tennis_club/pages/sign_in.dart';
+import 'package:wits_tennis_club/pages/splash_screen.dart';
+
+import 'admin_pages/admin_home.dart';
+import 'admin_pages/admin_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.red,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      //home: user != null ? const Player_Home() : const Sign_In(),
+      initialRoute: '/',
+      routes: {
+        '/' : (context) => const SplashScreen(),
+        '/sign_in' : (context) => user != null ? const Player_Home() : const Sign_In(),
+        '/adminsign_in' : (context) => user != null ? const Admin_Home() : const AdminSign_In(),
+        '/playerHome' : (context) => const Player_Home(),
+        '/adminHome' : (context) => const Admin_Home(),
+        '/forgotpassword' : (context) => const Forgot_Password(),
+      },
     );
   }
 }
 
+
+/*
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -116,3 +135,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
