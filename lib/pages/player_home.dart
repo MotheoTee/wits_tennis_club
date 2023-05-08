@@ -111,7 +111,7 @@ class _Player_HomeState extends State<Player_Home> {
           menuItem(5, "Make A Query", Icons.question_mark,
               currentPage == DrawerSections.makequery? true : false),
           menuItem(6, "Settings", Icons.settings,
-              currentPage == DrawerSections.homepage? true : false),
+              currentPage == DrawerSections.homepage? false : true),
 
           const Divider(color: Colors.grey,),
 
