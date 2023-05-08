@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -67,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 35.0),
                     child: GestureDetector(
                       onTap: () {
+                        Navigator.pushNamed(context, '/adminsign_in');
 
                       },
                       child: Container(

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Sign_In extends StatefulWidget {
-  const Sign_In({Key? key}) : super(key: key);
+class AdminSign_In extends StatefulWidget {
+  const AdminSign_In({Key? key}) : super(key: key);
 
   @override
-  State<Sign_In> createState() => _Sign_InState();
+  State<AdminSign_In> createState() => _AdminSign_InState();
 }
 
-class _Sign_InState extends State<Sign_In> {
+class _AdminSign_InState extends State<AdminSign_In> {
 
   // text controllers
   final _emailController = TextEditingController();
@@ -18,18 +18,18 @@ class _Sign_InState extends State<Sign_In> {
   //This is the sign in function so that the user can enter into our app
   Future signIn() async{
     showDialog(
-        context: context,
-        builder: (context){
-          return Center(child: CircularProgressIndicator());
-        },);
+      context: context,
+      builder: (context){
+        return Center(child: CircularProgressIndicator());
+      },);
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       ).then((value) =>
       //Navigator.canPop(context) ? Navigator.pop(context) : null);
-          print("Signed In Successfully"));
-          Navigator.pushNamed(context, '/playerHome');
+      print("Signed In Successfully"));
+      Navigator.pushNamed(context, '/playerHome');
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
       print('e');
@@ -84,7 +84,7 @@ class _Sign_InState extends State<Sign_In> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Player Email',
+                        Text('Staff Email',
                           style: TextStyle(
                               color: Colors.blue[900],
                               fontSize: 17,
@@ -111,8 +111,8 @@ class _Sign_InState extends State<Sign_In> {
                         child: TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'example@domain.com',
+                            border: InputBorder.none,
+                            hintText: 'example@domain.com',
                             prefixIcon: Icon(Icons.email),
                           ),
                         ),
@@ -195,7 +195,7 @@ class _Sign_InState extends State<Sign_In> {
                   ),
 
                   const SizedBox(height: 15),
-                  
+
                   //Sign in button
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 110.0),

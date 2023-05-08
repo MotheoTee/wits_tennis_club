@@ -6,6 +6,8 @@ import 'package:wits_tennis_club/pages/player_home.dart';
 import 'package:wits_tennis_club/pages/sign_in.dart';
 import 'package:wits_tennis_club/pages/splash_screen.dart';
 
+import 'admin_pages/admin_sign_in.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -37,6 +39,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/' : (context) => const SplashScreen(),
         '/sign_in' : (context) => user != null ? const Player_Home() : const Sign_In(),
+        '/adminsign_in' : (context) => user != null ? const Player_Home() : const AdminSign_In(),
         '/playerHome' : (context) => const Player_Home(),
         '/forgotpassword' : (context) => const Forgot_Password(),
       },
