@@ -29,7 +29,7 @@ class _AdminSign_InState extends State<AdminSign_In> {
       ).then((value) =>
       //Navigator.canPop(context) ? Navigator.pop(context) : null);
       print("Signed In Successfully"));
-      Navigator.pushNamed(context, '/playerHome');
+      Navigator.pushNamed(context, '/adminHome');
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
       print('e');
@@ -61,6 +61,14 @@ class _AdminSign_InState extends State<AdminSign_In> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text('STAFF',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 27,
+                      color: Colors.blue.shade900,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                   Divider(color: Colors.blue[900],),
                   const SizedBox(height: 50),
                   //Wits logo
