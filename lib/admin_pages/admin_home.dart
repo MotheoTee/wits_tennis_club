@@ -1,8 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wits_tennis_club/admin_pages/admin_announcements.dart';
+import 'package:wits_tennis_club/admin_pages/admin_homepage.dart';
+import 'package:wits_tennis_club/admin_pages/admin_offcampus.dart';
+import 'package:wits_tennis_club/admin_pages/admin_oncampus.dart';
+import 'package:wits_tennis_club/admin_pages/admin_players.dart';
 import 'package:wits_tennis_club/pages/splash_screen.dart';
 
 import '../components/my_drawer_header.dart';
+import '../pages/player_contactus.dart';
+import '../pages/player_privacypolicy.dart';
+import 'admin_settings.dart';
 
 class Admin_Home extends StatefulWidget {
   const Admin_Home({Key? key}) : super(key: key);
@@ -29,6 +37,31 @@ class _Admin_HomeState extends State<Admin_Home> {
 
   @override
   Widget build(BuildContext context) {
+    var admincontainer;
+    if(currentPage == DrawerSections.homepage){
+      admincontainer = Admin_HomePage();
+    }
+    else if(currentPage == DrawerSections.announcements){
+      admincontainer = Admin_Announcements();
+    }
+    else if(currentPage == DrawerSections.oncampus){
+      admincontainer = Admin_OnCampus();
+    }
+    else if(currentPage == DrawerSections.offcampus){
+      admincontainer = Admin_OffCampus();
+    }
+    else if(currentPage == DrawerSections.viewplayers){
+      admincontainer = Admin_Players();
+    }
+    else if(currentPage == DrawerSections.settings){
+      admincontainer = Admin_Settings();
+    }
+    else if(currentPage == DrawerSections.contacts){
+      admincontainer = Player_ContactUs();
+    }
+    else if(currentPage == DrawerSections.privacy_policy){
+      admincontainer = Player_PrivacyPolicy();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,53 +80,8 @@ class _Admin_HomeState extends State<Admin_Home> {
           ),
         ),
       ),
-      body:SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+      body: admincontainer,
 
-                  Text('Signed in as: ' + user.email!),
-                  Text("You are also the ADMIN"),
-
-                  const SizedBox(height: 15),
-
-
-                  //Reset button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 110.0),
-                    child: GestureDetector(
-                      onTap: () {
-
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(color: Colors.blue[900],
-                            borderRadius: BorderRadius.circular(15)
-                        ),
-                        child: Center(
-                            child: MaterialButton(
-                              onPressed: () {
-                                logOut();
-                              },
-                              child: const Text(
-                                'LogOut',
-                                style: TextStyle(color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15
-                                ),
-                              ),
-                            )),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                ],
-              ),
-            ),
-          )
-      ) ,
     );
   }
   Widget MyDrawerList(){

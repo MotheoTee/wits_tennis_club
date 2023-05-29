@@ -98,7 +98,7 @@ class _Forgot_PasswordState extends State<Forgot_Password> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20.0),
+                        padding: const EdgeInsets.only(left: 20.0),
                         child: TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(

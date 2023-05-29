@@ -1,5 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wits_tennis_club/pages/announcements.dart';
+import 'package:wits_tennis_club/pages/player_contactus.dart';
+import 'package:wits_tennis_club/pages/player_homepage.dart';
+import 'package:wits_tennis_club/pages/player_makequery.dart';
+import 'package:wits_tennis_club/pages/player_offcampus.dart';
+import 'package:wits_tennis_club/pages/player_oncampus.dart';
+import 'package:wits_tennis_club/pages/player_privacypolicy.dart';
+import 'package:wits_tennis_club/pages/player_settings.dart';
 import 'package:wits_tennis_club/pages/splash_screen.dart';
 
 import '../components/my_drawer_header.dart';
@@ -29,6 +37,31 @@ class _Player_HomeState extends State<Player_Home> {
 
   @override
   Widget build(BuildContext context) {
+    var container;
+    if(currentPage == DrawerSections.homepage){
+      container = PlayerHomePage2();
+    }
+    else if(currentPage == DrawerSections.announcements){
+      container = Announcements();
+    }
+    else if(currentPage == DrawerSections.oncampus){
+      container = Player_OnCampus();
+    }
+    else if(currentPage == DrawerSections.offcampus){
+      container = Player_OffCampus();
+    }
+    else if(currentPage == DrawerSections.makequery){
+      container = Player_MakeQuery();
+    }
+    else if(currentPage == DrawerSections.settings){
+      container = Player_Settings();
+    }
+    else if(currentPage == DrawerSections.contacts){
+      container = Player_ContactUs();
+    }
+    else if(currentPage == DrawerSections.privacy_policy){
+      container = Player_PrivacyPolicy();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,52 +80,7 @@ class _Player_HomeState extends State<Player_Home> {
           ),
         ),
       ),
-      body:SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  Text('Signed in as: ' + user.email!),
-
-                  const SizedBox(height: 15),
-
-
-                  //Reset button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 110.0),
-                    child: GestureDetector(
-                      onTap: () {
-
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(color: Colors.blue[900],
-                            borderRadius: BorderRadius.circular(15)
-                        ),
-                        child: Center(
-                            child: MaterialButton(
-                              onPressed: () {
-                                logOut();
-                              },
-                              child: const Text(
-                                'LogOut',
-                                style: TextStyle(color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15
-                                ),
-                              ),
-                            )),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                ],
-              ),
-            ),
-          )
-      ) ,
+      body: container,
     );
   }
   Widget MyDrawerList(){
