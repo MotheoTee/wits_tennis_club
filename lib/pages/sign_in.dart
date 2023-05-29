@@ -29,6 +29,7 @@ class _Sign_InState extends State<Sign_In> {
       ).then((value) =>
       //Navigator.canPop(context) ? Navigator.pop(context) : null);
           print("Signed In Successfully"));
+          if(context.mounted) Navigator.pop(context);
           Navigator.pushNamed(context, '/playerHome');
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
@@ -210,6 +211,11 @@ class _Sign_InState extends State<Sign_In> {
                     child: GestureDetector(
                       onTap: () {
                         signIn();
+                        setState(() {
+                          _emailController.clear();
+                          _passwordController.clear();
+                        });
+                        Navigator.pop(context); 
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),

@@ -211,6 +211,10 @@ class _AdminSign_InState extends State<AdminSign_In> {
                     child: GestureDetector(
                       onTap: () {
                         signIn();
+                        setState(() {
+                          _emailController.clear();
+                          _passwordController.clear();
+                        });
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),
