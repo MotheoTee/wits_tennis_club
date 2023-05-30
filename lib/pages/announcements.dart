@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../components/helper_methods.dart';
 import '../components/post_announcement.dart';
 
 class Announcements extends StatefulWidget {
@@ -49,7 +50,12 @@ class _AnnouncementsState extends State<Announcements> {
                                 //get announcement
                                 final post = snapshot.data!.docs[index];
 
-                                return PostAnnouncement(announcement: post["Post"], user: post["adminEmail"]);
+                                return PostAnnouncement(
+                                  announcement: post["Post"],
+                                  user: post["adminEmail"],
+                                  time: formatDate(post['TimeStamp']),
+                                );
+
                               });
                         }
                         else if(snapshot.hasError){

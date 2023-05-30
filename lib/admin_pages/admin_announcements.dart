@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wits_tennis_club/components/post_announcement.dart';
 
+import '../components/helper_methods.dart';
+
 class Admin_Announcements extends StatefulWidget {
   const Admin_Announcements({Key? key}) : super(key: key);
 
@@ -65,7 +67,11 @@ class _Admin_AnnouncementsState extends State<Admin_Announcements> {
                                 //get announcement
                                 final post = snapshot.data!.docs[index];
 
-                                return PostAnnouncement(announcement: post["Post"], user: post["adminEmail"]);
+                                return PostAnnouncement(
+                                    announcement: post["Post"],
+                                    user: post["adminEmail"],
+                                  time: formatDate(post['TimeStamp']),);
+
                               });
                         }
                         else if(snapshot.hasError){

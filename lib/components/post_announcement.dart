@@ -5,8 +5,9 @@ class PostAnnouncement extends StatelessWidget {
 
   final String announcement;
   final String user;
+  final String time;
 
-  const PostAnnouncement({Key? key, required this.announcement, required this.user}) : super(key: key);
+  const PostAnnouncement({Key? key, required this.announcement, required this.user, required this.time}) : super(key: key);
 
 
   @override
@@ -37,12 +38,25 @@ class PostAnnouncement extends StatelessWidget {
                 children: [
                   
                   const SizedBox(width: 20,),
+                  Row(
+                    children: [
+                      Text(
+                          user,
+                          style: TextStyle(
+                            color: Colors.blue[900],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
+                      ),
+
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
                   Text(
-                      user,
+                      time,
                       style: TextStyle(
-                        color: Colors.blue[900],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
+                        color: Colors.blue[350],
+                        fontSize: 13,
                       ),
                   ),
                   const SizedBox(height: 10,),
