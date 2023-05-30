@@ -45,7 +45,7 @@ class PostAnnouncement extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.blue[900],
                             fontWeight: FontWeight.bold,
-                            fontSize: 17,
+                            fontSize: 14,
                           ),
                       ),
 
