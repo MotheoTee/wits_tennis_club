@@ -22,8 +22,11 @@ class PostAnnouncement extends StatelessWidget {
         padding: EdgeInsets.all(25),
         child: Row(
           children: [
+            const SizedBox(height: 20,),
+
             //profile pic
             Container(
+
               decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
               padding: EdgeInsets.all(10),
               child: Icon(
@@ -36,8 +39,9 @@ class PostAnnouncement extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
+
                   const SizedBox(width: 20,),
+
                   Row(
                     children: [
                       Text(
@@ -45,7 +49,7 @@ class PostAnnouncement extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.blue[900],
                             fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                            fontSize: 13,
                           ),
                       ),
 
@@ -56,7 +60,7 @@ class PostAnnouncement extends StatelessWidget {
                       time,
                       style: TextStyle(
                         color: Colors.blue[350],
-                        fontSize: 13,
+                        fontSize: 11,
                       ),
                   ),
                   const SizedBox(height: 10,),
@@ -68,6 +72,7 @@ class PostAnnouncement extends StatelessWidget {
                   ),
                 ],
               ),
+
             ),
           ],
         ),

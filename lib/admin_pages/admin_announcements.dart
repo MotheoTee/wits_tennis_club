@@ -53,6 +53,11 @@ class _Admin_AnnouncementsState extends State<Admin_Announcements> {
                   ),
                 ),
 
+                const SizedBox(height: 10,),
+
+                Divider(color: Colors.blue[900],),
+                const SizedBox(height: 10,),
+
                 Expanded(
                     child: StreamBuilder(
                       stream: FirebaseFirestore.instance.collection("announcements").orderBy(
@@ -86,6 +91,9 @@ class _Admin_AnnouncementsState extends State<Admin_Announcements> {
                     ) ),
 
                 //announcement text-field below
+                const SizedBox(height: 10,),
+                Divider(color: Colors.blue[900],),
+                const SizedBox(height: 10,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
