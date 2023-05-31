@@ -20,18 +20,21 @@ class _AdminSign_InState extends State<AdminSign_In> {
     showDialog(
       context: context,
       builder: (context){
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       },);
+    Navigator.of(context).pop();
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       ).then((value) =>
       //Navigator.canPop(context) ? Navigator.pop(context) : null);
-      print("Signed In Successfully"));
-      Navigator.of(context).pop();
-      Navigator.pushNamed(context, '/adminHome');
+        print("Signed In Successfully"));
+        //if(context.mounted) Navigator.pop(context);
+        Navigator.of(context).pop();
+        Navigator.pushNamed(context, '/adminHome');
     } on FirebaseAuthException catch (e) {
+      Navigator.of(context).pop();
       print('e');
       showDialog(
           context: context,
@@ -40,7 +43,6 @@ class _AdminSign_InState extends State<AdminSign_In> {
               content: Text(e.message.toString()),
             );
           });
-
     }
   }
 
