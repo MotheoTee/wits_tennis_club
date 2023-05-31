@@ -17,11 +17,14 @@ class _CreatePlayerState extends State<CreatePlayer> {
 
 //authentication of players
   Future addPlayer() async{
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    if(_ademailController.text.isNotEmpty){
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _ademailController.text.trim(),
         password: 'tennis123',
-    );
-    //add player details to firebase database
+      );
+      //add player details to firebase database
+
+    }
     addDetails(
         _ademailController.text.trim(),
         _adnameController.text.trim(),
@@ -99,12 +102,13 @@ class _CreatePlayerState extends State<CreatePlayer> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 20.0),
                         child: TextField(
-                          controller: _ademailController,
+
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'example@domain.com',
                             prefixIcon: Icon(Icons.email),
                           ),
+                          controller: _ademailController,
                         ),
                       ),
                     ),
@@ -139,11 +143,11 @@ class _CreatePlayerState extends State<CreatePlayer> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 20.0),
                         child: TextField(
-                          controller: _adnameController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Icon(Icons.person),
                           ),
+                          controller: _adnameController,
                         ),
                       ),
                     ),
