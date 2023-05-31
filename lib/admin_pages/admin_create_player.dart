@@ -23,14 +23,13 @@ class _CreatePlayerState extends State<CreatePlayer> {
         password: 'tennis123',
       );
       //add player details to firebase database
-
+      addDetails(
+          _ademailController.text.trim().toString(),
+          _adnameController.text.trim().toString(),
+          _adsurnameController.text.trim().toString(),
+          'Player'
+      );
     }
-    addDetails(
-        _ademailController.text.trim(),
-        _adnameController.text.trim(),
-        _adsurnameController.text.trim(),
-        'Player'
-    );
   }
 
   Future addDetails(String playerEmail, String playerName, String playerSurname, String playerRole) async {
