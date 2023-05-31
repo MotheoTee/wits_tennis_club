@@ -1,53 +1,49 @@
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-class AdminSign_In extends StatefulWidget {
-  const AdminSign_In({Key? key}) : super(key: key);
+class CreatePlayer extends StatefulWidget {
+  const CreatePlayer({Key? key}) : super(key: key);
 
   @override
-  State<AdminSign_In> createState() => _AdminSign_InState();
+  State<CreatePlayer> createState() => _CreatePlayerState();
 }
 
-class _AdminSign_InState extends State<AdminSign_In> {
+class _CreatePlayerState extends State<CreatePlayer> {
 
-  // text controllers
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _obscureText = true;
+  final _ademailController = TextEditingController();
+  final _adnameController = TextEditingController();
+  final _adsurnameController = TextEditingController();
 
-  //This is the sign in function so that the user can enter into our app
-  Future signIn() async{
-    showDialog(
-      context: context,
-      builder: (context){
-        return Center(child: CircularProgressIndicator());
-      },);
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      ).then((value) =>
-      //Navigator.canPop(context) ? Navigator.pop(context) : null);
-      print("Signed In Successfully"));
-      Navigator.of(context).pop();
-      Navigator.pushNamed(context, '/adminHome');
-    } on FirebaseAuthException catch (e) {
-      print('e');
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text(e.message.toString()),
-            );
-          });
-
-    }
+//authentication of players
+  Future addPlayer() async{
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _ademailController.text.trim(),
+        password: 'tennis123',
+    );
+    //add player details to firebase database
+    addDetails(
+        _ademailController.text.trim(),
+        _adnameController.text.trim(),
+        _adsurnameController.text.trim(),
+        'Player'
+    );
   }
 
+  Future addDetails(String playerEmail, String playerName, String playerSurname, String playerRole) async {
+    await FirebaseFirestore.instance.collection('players').add({
+      'email': playerEmail ,
+      'name': playerName,
+      'surname': playerSurname,
+      'role': playerRole,
+    });
+
+  }
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _ademailController.dispose();
+    _adnameController.dispose();
+    _adsurnameController.dispose();
     super.dispose();
   }
 
@@ -61,39 +57,24 @@ class _AdminSign_InState extends State<AdminSign_In> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('STAFF',
+                  Text('ADD PLAYER',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 27,
                       color: Colors.blue.shade900,
                       decoration: TextDecoration.underline,
                     ),
-
                   ),
-                  Divider(color: Colors.blue[900],),
-                  const SizedBox(height: 50),
                   //Wits logo
-                  const Image(image: AssetImage('images/witsimage.png')),
+                  const SizedBox(height: 70),
 
-                  const SizedBox(height: 25),
-
-                  Text('TENNIS CLUB',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 27,
-                      color: Colors.blue.shade900,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-
-                  const SizedBox(height: 40),
                   //Email text above it's text-field
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Staff Email',
+                        Text('Email',
                           style: TextStyle(
                               color: Colors.blue[900],
                               fontSize: 17,
@@ -116,9 +97,9 @@ class _AdminSign_InState extends State<AdminSign_In> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
+                        padding: EdgeInsets.only(left: 20.0),
                         child: TextField(
-                          controller: _emailController,
+                          controller: _ademailController,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'example@domain.com',
@@ -130,14 +111,12 @@ class _AdminSign_InState extends State<AdminSign_In> {
                   ),
 
                   const SizedBox(height: 15),
-
-                  //password text above it's textfield
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Password',
+                        Text('Name',
                           style: TextStyle(
                               color: Colors.blue[900],
                               fontSize: 17,
@@ -149,7 +128,6 @@ class _AdminSign_InState extends State<AdminSign_In> {
                   ),
 
                   const SizedBox(height: 7),
-                  //password text-field
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
@@ -159,61 +137,73 @@ class _AdminSign_InState extends State<AdminSign_In> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
+                        padding: EdgeInsets.only(left: 20.0),
                         child: TextField(
-                          controller: _passwordController,
-                          obscureText: _obscureText,
+                          controller: _adnameController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            prefixIcon: const Icon(Icons.lock),
-                            suffixIcon: GestureDetector(
-                              onTap: () {setState(() {
-                                _obscureText=! _obscureText;
-                              });
-                              },
-                              child: Icon(_obscureText ?Icons.visibility : Icons.visibility_off),
-                            ),
+                            prefixIcon: Icon(Icons.person),
                           ),
                         ),
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 10),
-
-                  //Forgot password option
+                  const SizedBox(height: 15),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/forgotpassword');
-                          } ,
-                          child: Text('Forgot Password?',
-                            style: TextStyle(
-                                color: Colors.blue[900],
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline
-                            ),
+                        Text('Surname',
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              decoration: TextDecoration.underline
                           ),
                         ),
                       ],
                     ),
                   ),
 
+                  const SizedBox(height: 7),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.blue.shade900),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: _adsurnameController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
                   const SizedBox(height: 15),
 
-                  //Sign in button
+                  //password text above it's textfield
+
+                  const SizedBox(height: 10),
+
+                  //add in button
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 110.0),
                     child: GestureDetector(
                       onTap: () {
-                        signIn();
+                        addPlayer();
                         setState(() {
-                          _emailController.clear();
-                          _passwordController.clear();
+                          _ademailController.clear();
+                          _adnameController.clear();
+                          _adsurnameController.clear();
                         });
                       },
                       child: Container(
@@ -223,7 +213,7 @@ class _AdminSign_InState extends State<AdminSign_In> {
                         ),
                         child: const Center(
                             child: Text(
-                              'Sign In',
+                              'Add',
                               style: TextStyle(color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15
@@ -233,23 +223,7 @@ class _AdminSign_InState extends State<AdminSign_In> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text('Go Back',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.blue.shade900,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Divider(
-                    color: Colors.blue[900],
-                  ),
+
                 ],
               ),
             ),
@@ -258,4 +232,3 @@ class _AdminSign_InState extends State<AdminSign_In> {
     );
   }
 }
-

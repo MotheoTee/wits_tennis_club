@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wits_tennis_club/admin_pages/admin_create_player.dart';
 import 'package:wits_tennis_club/pages/forgot_password.dart';
 import 'package:wits_tennis_club/pages/player_home.dart';
 import 'package:wits_tennis_club/pages/sign_in.dart';
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       //home: user != null ? const Player_Home() : const Sign_In(),
-      initialRoute: '/',
+      //initialRoute: '/',
       routes: {
         '/' : (context) => const SplashScreen(),
         '/sign_in' : (context) => user != null ? const Player_Home() : const Sign_In(),
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         '/playerHome' : (context) => const Player_Home(),
         '/adminHome' : (context) => const Admin_Home(),
         '/forgotpassword' : (context) => const Forgot_Password(),
+        '/create_player' : (context) => const CreatePlayer(),
       },
     );
   }

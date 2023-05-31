@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wits_tennis_club/components/get_player_name.dart';
 
 class Admin_Players extends StatefulWidget {
   const Admin_Players({Key? key}) : super(key: key);
@@ -9,12 +12,6 @@ class Admin_Players extends StatefulWidget {
 }
 
 class _Admin_PlayersState extends State<Admin_Players> {
-
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _lastameController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
 
   //database function to add student details
 
@@ -67,15 +64,84 @@ class _Admin_PlayersState extends State<Admin_Players> {
     }
   }
   */
+  final user = FirebaseAuth.instance.currentUser!;
+
+  List<String> docIDs = [];
+
+  //get doc  IDs
+
+  Future getDocID() async {
+    await FirebaseFirestore.instance.collection('players').get().then(
+            (snapshot) => snapshot.docs.forEach((element) {
+              print(element.reference);
+              docIDs.add(element.reference.id);
+            })
+    );
+  }
 
   //layout for page
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Manage Student'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20,),
+
+            Text(
+              "Players",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 22,
+              ),
+            ),
+            const SizedBox(height: 20,),
+            Expanded(
+              child: FutureBuilder(
+                future: getDocID() ,
+                builder: (context, snapshot){
+
+                return ListView.builder(
+                    itemCount: docIDs.length,
+                    itemBuilder: (context, index){
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Row(
+                            children: [
+                              const SizedBox(height: 20,),
+                              Container(
+
+                                decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                padding: EdgeInsets.all(10),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.blue[400],
+                                ),
+                              ),
+                              const SizedBox(width: 20,),
+                              GetPlayerName(documentId: docIDs[index]),
+                            ],
+                          ),
+                          tileColor: Colors.blue[300],
+                        ),
+                      );
+                    });
+              },),
+            ),
+            const SizedBox(height: 20,),
+
+          ],
+        ),
       ),
-      body: Padding(
+
+    );
+  }
+}
+
+/*
+body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -145,6 +211,4 @@ class _Admin_PlayersState extends State<Admin_Players> {
           ),
         ),
       ),
-    );
-  }
-}
+*/
