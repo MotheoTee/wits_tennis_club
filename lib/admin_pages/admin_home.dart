@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wits_tennis_club/admin_pages/admin_announcements.dart';
+import 'package:wits_tennis_club/admin_pages/admin_create_player.dart';
 import 'package:wits_tennis_club/admin_pages/admin_homepage.dart';
 import 'package:wits_tennis_club/admin_pages/admin_offcampus.dart';
 import 'package:wits_tennis_club/admin_pages/admin_oncampus.dart';
@@ -28,8 +29,10 @@ class _Admin_HomeState extends State<Admin_Home> {
   Future logOut() async{
     await FirebaseAuth.instance.signOut().then((value) =>
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>
-                SplashScreen())).onError((error, stackTrace) =>
+            new MaterialPageRoute(
+                builder: (context) =>
+                SplashScreen())).onError(
+                (error, stackTrace) =>
             print("Error ${error.toString()}")));
     Navigator.pop(context);
     print("Signed Out Successfully");
@@ -53,6 +56,9 @@ class _Admin_HomeState extends State<Admin_Home> {
     else if(currentPage == DrawerSections.viewplayers){
       admincontainer = Admin_Players();
     }
+    else if(currentPage == DrawerSections.createplayers){
+      admincontainer = CreatePlayer();
+    }
     else if(currentPage == DrawerSections.settings){
       admincontainer = Admin_Settings();
     }
@@ -61,6 +67,9 @@ class _Admin_HomeState extends State<Admin_Home> {
     }
     else if(currentPage == DrawerSections.privacy_policy){
       admincontainer = Player_PrivacyPolicy();
+    }
+    else{
+      admincontainer = Admin_HomePage();
     }
     return Scaffold(
       backgroundColor: Colors.white,
@@ -99,16 +108,18 @@ class _Admin_HomeState extends State<Admin_Home> {
               currentPage == DrawerSections.offcampus? true : false),
           menuItem(5, "View Players", Icons.people,
               currentPage == DrawerSections.viewplayers? true : false),
-          menuItem(6, "Settings", Icons.settings,
+          menuItem(6, "Create Player", Icons.people,
+              currentPage == DrawerSections.createplayers? true : false),
+          menuItem(7, "Settings", Icons.settings,
               currentPage == DrawerSections.settings? true : false),
 
           const Divider(color: Colors.blue,),
 
-          menuItem(7, "Contact Us", Icons.people_alt_outlined,
+          menuItem(8, "Contact Us", Icons.people_alt_outlined,
               currentPage == DrawerSections.contacts? true : false),
-          menuItem(8, "Privacy Policy", Icons.privacy_tip_outlined,
+          menuItem(9, "Privacy Policy", Icons.privacy_tip_outlined,
               currentPage == DrawerSections.privacy_policy? true : false),
-          menuItem(9, "LogOut", Icons.logout,
+          menuItem(10, "LogOut", Icons.logout,
               currentPage == DrawerSections.logout? true : false),
         ],
       ),
@@ -137,12 +148,15 @@ class _Admin_HomeState extends State<Admin_Home> {
               currentPage = DrawerSections.viewplayers;
             }
             else if(id ==6){
-              currentPage = DrawerSections.settings;
+              currentPage = DrawerSections.createplayers;
             }
             else if(id ==7){
-              currentPage = DrawerSections.contacts;
+              currentPage = DrawerSections.settings;
             }
             else if(id ==8){
+              currentPage = DrawerSections.contacts;
+            }
+            else if(id ==9){
               currentPage = DrawerSections.privacy_policy;
             }
             else{
@@ -181,6 +195,7 @@ enum DrawerSections{
   oncampus,
   offcampus,
   viewplayers,
+  createplayers,
   settings,
   contacts,
   privacy_policy,

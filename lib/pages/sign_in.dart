@@ -18,19 +18,21 @@ class _Sign_InState extends State<Sign_In> {
   //This is the sign in function so that the user can enter into our app
   Future signIn() async{
     showDialog(
-        context: context,
-        builder: (context){
-          return Center(child: CircularProgressIndicator());
-        },);
+      context: context,
+      builder: (context){
+        return const Center(child: CircularProgressIndicator());
+      },);
+    Navigator.of(context).pop();
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       ).then((value) =>
       //Navigator.canPop(context) ? Navigator.pop(context) : null);
-          print("Signed In Successfully"));
-          if(context.mounted) Navigator.pop(context);
-          Navigator.pushNamed(context, '/playerHome');
+      print("Signed In Successfully"));
+      //if(context.mounted) Navigator.pop(context);
+      Navigator.of(context).pop();
+      Navigator.pushNamed(context, '/playerHome');
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
       print('e');
@@ -41,7 +43,6 @@ class _Sign_InState extends State<Sign_In> {
               content: Text(e.message.toString()),
             );
           });
-
     }
   }
 
@@ -69,6 +70,7 @@ class _Sign_InState extends State<Sign_In> {
                       color: Colors.blue.shade900,
                       decoration: TextDecoration.underline,
                     ),
+
                   ),
                   Divider(color: Colors.blue[900],),
                   const SizedBox(height: 50),
@@ -120,8 +122,8 @@ class _Sign_InState extends State<Sign_In> {
                         child: TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'example@domain.com',
+                            border: InputBorder.none,
+                            hintText: 'example@domain.com',
                             prefixIcon: Icon(Icons.email),
                           ),
                         ),
@@ -204,7 +206,7 @@ class _Sign_InState extends State<Sign_In> {
                   ),
 
                   const SizedBox(height: 15),
-                  
+
                   //Sign in button
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 110.0),
@@ -215,7 +217,6 @@ class _Sign_InState extends State<Sign_In> {
                           _emailController.clear();
                           _passwordController.clear();
                         });
-                        Navigator.pop(context); 
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),

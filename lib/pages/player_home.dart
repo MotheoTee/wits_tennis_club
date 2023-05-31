@@ -28,7 +28,7 @@ class _Player_HomeState extends State<Player_Home> {
   Future logOut() async{
     await FirebaseAuth.instance.signOut().then((value) =>
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>
+            new MaterialPageRoute(builder: (context) =>
                 SplashScreen())).onError((error, stackTrace) =>
             print("Error ${error.toString()}")));
         Navigator.pop(context);

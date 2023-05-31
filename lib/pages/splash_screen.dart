@@ -90,6 +90,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: Colors.blue[900],
                   ),
                 ],
+
               ),
             ),
           )
