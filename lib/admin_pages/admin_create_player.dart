@@ -11,24 +11,29 @@ class CreatePlayer extends StatefulWidget {
 
 class _CreatePlayerState extends State<CreatePlayer> {
 
-  final _ademailController = TextEditingController();
-  final _adnameController = TextEditingController();
-  final _adsurnameController = TextEditingController();
+  final ademailController = TextEditingController();
+  final adnameController = TextEditingController();
+  final adsurnameController = TextEditingController();
 
 //authentication of players
   Future addPlayer() async{
-    if(_ademailController.text.isNotEmpty){
+    if(ademailController.text.isNotEmpty){
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _ademailController.text.trim(),
+        email: ademailController.text.trim(),
         password: 'tennis123',
       );
       //add player details to firebase database
       addDetails(
-          _ademailController.text.trim().toString(),
-          _adnameController.text.trim().toString(),
-          _adsurnameController.text.trim().toString(),
+          ademailController.text.trim().toString(),
+          adnameController.text.trim().toString(),
+          adsurnameController.text.trim().toString(),
           'Player'
       );
+      setState(() {
+        ademailController.clear();
+        adnameController.clear();
+        adsurnameController.clear();
+      });
     }
   }
 
@@ -43,9 +48,9 @@ class _CreatePlayerState extends State<CreatePlayer> {
   }
   @override
   void dispose() {
-    _ademailController.dispose();
-    _adnameController.dispose();
-    _adsurnameController.dispose();
+    ademailController.dispose();
+    adnameController.dispose();
+    adsurnameController.dispose();
     super.dispose();
   }
 
@@ -107,7 +112,7 @@ class _CreatePlayerState extends State<CreatePlayer> {
                             hintText: 'example@domain.com',
                             prefixIcon: Icon(Icons.email),
                           ),
-                          controller: _ademailController,
+                          controller: ademailController,
                         ),
                       ),
                     ),
@@ -146,7 +151,7 @@ class _CreatePlayerState extends State<CreatePlayer> {
                             border: InputBorder.none,
                             prefixIcon: Icon(Icons.person),
                           ),
-                          controller: _adnameController,
+                          controller: adnameController,
                         ),
                       ),
                     ),
@@ -181,7 +186,7 @@ class _CreatePlayerState extends State<CreatePlayer> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 20.0),
                         child: TextField(
-                          controller: _adsurnameController,
+                          controller: adsurnameController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Icon(Icons.person),
@@ -203,11 +208,11 @@ class _CreatePlayerState extends State<CreatePlayer> {
                     child: GestureDetector(
                       onTap: () {
                         addPlayer();
-                        setState(() {
-                          _ademailController.clear();
-                          _adnameController.clear();
-                          _adsurnameController.clear();
-                        });
+                        /*setState(() {
+                          ademailController.clear();
+                          adnameController.clear();
+                          adsurnameController.clear();
+                        });*/
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),
